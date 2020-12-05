@@ -13,4 +13,8 @@ class DropColumns(BaseEstimator, TransformerMixin):
         # Primeiro realizamos a cópia do dataframe 'X' de entrada
         data = X.copy()
         # Retornamos um novo dataframe sem as colunas indesejadas
-        return data.drop(labels=self.columns, axis='columns')
+        
+        cleanup_nums = {"koi_pdisposition": {"CANDIDATE": 1, "FALSE POSITIVE": 2}}
+        data2 = data.replace(cleanup_nums, inplace=False)
+        
+        return data2.drop(labels=self.columns, axis='columns')
